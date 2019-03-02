@@ -7,9 +7,9 @@ import os
 import re
 
 from config import CSV_HEADER_LABEL, CSV_HEADER_LENGTH, CSV_FIELDNAMES
-from config import LABEL_WHITELIST_PATTERN, CSV_DIR, CSV_DELIMITER, WIN_STEP
-from util.storage_helper import delete_file_if_exists
+from config import LABEL_WHITELIST_PATTERN, DATA_DIR, CSV_DELIMITER, WIN_STEP
 from util.matplotlib_helper import pyplot_display
+from util.storage_helper import delete_file_if_exists
 
 
 def generate_csv(dataset_name, target, csv_data):
@@ -34,7 +34,7 @@ def generate_csv(dataset_name, target, csv_data):
         str: Path to the created CSV file.
     """
 
-    target_csv_path = os.path.join(CSV_DIR, '{}_{}.csv'.format(dataset_name, target))
+    target_csv_path = os.path.join(DATA_DIR, '{}_{}.csv'.format(dataset_name, target))
     print('Starting to generate: {}'.format(os.path.basename(target_csv_path)))
 
     # Remove illegal characters from labels.
@@ -95,7 +95,7 @@ def merge_csv_files(csv_files, target):
             buffer.extend(lines)
 
     # Write data to target file.
-    target_file = os.path.join(CSV_DIR, '{}.csv'.format(target))
+    target_file = os.path.join(DATA_DIR, '{}.csv'.format(target))
     with open(target_file, 'w', encoding='utf-8') as file_handle:
         writer = csv.DictWriter(file_handle, delimiter=CSV_DELIMITER, fieldnames=CSV_FIELDNAMES)
         writer.writeheader()
@@ -227,7 +227,7 @@ def __plot_sequence_lengths(plt, lengths):
 
 if __name__ == '__main__':
     # Path to `train.csv` file.
-    __CSV_PATH = os.path.join(CSV_DIR, 'train.csv')
+    __CSV_PATH = os.path.join(DATA_DIR, 'train.csv')
 
     # Display dataset stats.
     sort_by_seq_len(__CSV_PATH)

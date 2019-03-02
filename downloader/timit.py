@@ -1,5 +1,5 @@
 """
-# TODO: Document that this is not included, etc.
+# TODO: Document that this is not included, and where to place the TIMIT data if available.
 Load the `TIMIT`_ dataset.
 
 .. _TIMIT:

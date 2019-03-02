@@ -1,4 +1,5 @@
-venv
+venv/
+data/
 *.idea
 *__pycache__
 *.swp

@@ -14,12 +14,11 @@ import random
 import librosa
 import numpy as np
 import python_speech_features as psf
+from asr.params import BASE_PATH, WIN_STEP, WIN_LENGTH
 from librosa import display
 from matplotlib import pyplot as plt
 from matplotlib import rc
 from scipy.io import wavfile
-
-from asr.params import BASE_PATH, WIN_STEP, WIN_LENGTH
 
 rc('font', **{'family': 'serif',
               'serif': ['DejaVu Sans'],
@@ -49,13 +48,13 @@ def display_sample_info(file_path, label=''):
     y, sr = librosa.load(file_path, sr=None, mono=True)
 
     # At 16000 Hz, 512 samples ~= 32ms. At 16000 Hz, 200 samples = 12ms. 16 samples = 1ms @ 16kHz.
-    hop_length = 200    # Number of samples between successive frames e.g. columns if a spectrogram.
-    f_max = sr / 2.     # Maximum frequency (Nyquist rate).
-    f_min = 64.         # Minimum frequency.
-    n_fft = 1024        # Number of samples in a frame.
-    n_mels = 80         # Number of Mel bins to generate.
-    n_mfcc = 13         # Number of Mel cepstral coefficients to extract.
-    win_length = 333    # Window length.
+    hop_length = 200  # Number of samples between successive frames e.g. columns if a spectrogram.
+    f_max = sr / 2.  # Maximum frequency (Nyquist rate).
+    f_min = 64.  # Minimum frequency.
+    n_fft = 1024  # Number of samples in a frame.
+    n_mels = 80  # Number of Mel bins to generate.
+    n_mfcc = 13  # Number of Mel cepstral coefficients to extract.
+    win_length = 333  # Window length.
 
     # Create info string.
     num_samples = y.shape[0]

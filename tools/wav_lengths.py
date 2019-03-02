@@ -10,11 +10,10 @@ import sys
 from multiprocessing import Pool, Lock, cpu_count
 
 import numpy as np
-from scipy.io import wavfile
-from tqdm import tqdm
-
 from asr.params import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
 from asr.util.matplotlib_helper import pyplot_display
+from scipy.io import wavfile
+from tqdm import tqdm
 
 __DATASETS_PATH = '../datasets/speech_data'
 

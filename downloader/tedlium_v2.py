@@ -15,10 +15,10 @@ from multiprocessing import Pool, Lock, cpu_count
 from scipy.io import wavfile
 from tqdm import tqdm
 
-from util import download
-from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, SAMPLING_RATE
 from config import CACHE_DIR, CORPUS_DIR, sox_commandline
 from config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
+from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, SAMPLING_RATE
+from util import download
 from util.csv_helper import generate_csv
 from util.storage_helper import delete_file_if_exists
 

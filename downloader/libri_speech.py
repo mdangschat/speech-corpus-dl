@@ -13,11 +13,11 @@ from multiprocessing import Pool, Lock, cpu_count
 from scipy.io import wavfile
 from tqdm import tqdm
 
-from asr.dataset import download
-from asr.dataset.config import CACHE_DIR, CORPUS_DIR, sox_commandline
-from asr.dataset.config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
-from asr.dataset.csv_helper import generate_csv
-from asr.params import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
+from config import CACHE_DIR, CORPUS_DIR, sox_commandline
+from config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
+from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
+from util import download
+from util.csv_helper import generate_csv
 
 # L8ER: Add the `other` datasets as well and see if they improve the results.
 # Path to the LibriSpeech ASR dataset.
@@ -39,7 +39,7 @@ __SOURCE_PATH = os.path.join(CACHE_DIR, __FOLDER_NAME)
 __TARGET_PATH = os.path.realpath(os.path.join(CORPUS_DIR, __FOLDER_NAME))
 
 
-def libri_speech_loader(keep_archive):
+def libri_loader(keep_archive):
     """
     Download, extract and convert the Libri Speech archive.
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
@@ -178,5 +178,5 @@ def __libri_speech_loader_helper(args):
 
 # Test download script.
 if __name__ == '__main__':
-    print('Libri Speech csv_paths: ', libri_speech_loader(True))
+    print('Libri Speech csv_paths: ', libri_loader(True))
     print('\nDone.')

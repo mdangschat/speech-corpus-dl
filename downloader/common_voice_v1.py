@@ -14,10 +14,10 @@ from multiprocessing import Pool, Lock, cpu_count
 from scipy.io import wavfile
 from tqdm import tqdm
 
-from util import download
-from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
 from config import CACHE_DIR, CORPUS_DIR, sox_commandline
 from config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
+from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
+from util import download
 from util.csv_helper import generate_csv
 from util.storage_helper import delete_file_if_exists
 
@@ -42,7 +42,7 @@ __VALID_ACCENTS = ['us',
                    '']
 
 
-def common_voice_loader(keep_archive):
+def cv_loader(keep_archive):
     """
     Download, extract and convert the Common Voice archive.
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
@@ -176,5 +176,5 @@ def __common_voice_loader_helper(line):
 
 # Test download script.
 if __name__ == '__main__':
-    print('Common Voice csv_paths: ', common_voice_loader(True))
+    print('Common Voice csv_paths: ', cv_loader(True))
     print('\nDone.')

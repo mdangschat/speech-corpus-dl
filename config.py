@@ -6,6 +6,8 @@ Also reference `generate_dataset.py`.
 import os
 import re
 
+from util.storage_helper import makedirs
+
 # Audio config.
 SAMPLING_RATE = 16000
 # Minimum and maximum audio file length (in seconds).
@@ -14,13 +16,13 @@ MAX_EXAMPLE_LENGTH = 17.0
 # The step between successive windows in seconds.
 WIN_STEP = 0.010
 
-# Path to git root.
-GIT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
-# Where to generate the CSV files, e.g. /home/user/../<project_name>/data/<target>.csv
-DATA_DIR = CSV_DIR = os.path.join(GIT_ROOT, 'data')
+# Path to data directory, this must be an existing folder.
+DATA_DIR = '/home/marc/workspace/speech-corpus'
+assert os.path.exists(DATA_DIR) and os.path.isdir(DATA_DIR) and os.access(DATA_DIR, os.W_OK)
 
 CACHE_DIR = os.path.join(DATA_DIR, 'cache')
 CORPUS_DIR = os.path.join(DATA_DIR, 'corpus')
+makedirs([CACHE_DIR, CORPUS_DIR])
 
 CSV_DELIMITER = ';'
 

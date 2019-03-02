@@ -68,6 +68,13 @@ def md5(file_path):
     return hash_md5.hexdigest()
 
 
+def makedirs(dirs):
+    # TODO: Documentation. Note that this expects a list.
+    for _dir in dirs:
+        if not os.path.exists(_dir):
+            os.makedirs(_dir, exist_ok=True)
+
+
 def tar_extract_all(tar_path, target_path):
     """
     Extract a TAR archive. Overrides existing files.

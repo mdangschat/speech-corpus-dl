@@ -35,12 +35,12 @@ Generated data format:
 import json
 
 from config import JSON_PATH
-from downloader.common_voice_v1 import common_voice_loader
-from util.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
-from downloader.libri_speech import libri_speech_loader
+from downloader.common_voice_v1 import cv_loader
+from downloader.libri_speech import libri_loader
 from downloader.tatoeba import tatoeba_loader
 from downloader.tedlium_v2 import tedlium_loader
 from downloader.timit import timit_loader
+from util.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
 
 
 def generate_dataset(keep_archives=True, use_timit=True):
@@ -55,16 +55,16 @@ def generate_dataset(keep_archives=True, use_timit=True):
     Returns:
         Nothing.
     """
-    # Common Voice
-    cv_train, cv_test, cv_dev = common_voice_loader(keep_archives)
+    # Common Voice v1
+    cv_train, cv_test, cv_dev = cv_loader(keep_archives)
 
     # Libri Speech ASR
-    ls_train, ls_test, ls_dev = libri_speech_loader(keep_archives)
+    ls_train, ls_test, ls_dev = libri_loader(keep_archives)
 
     # Tatoeba
     tatoeba_train = tatoeba_loader(keep_archives)
 
-    # TEDLIUM
+    # TEDLIUM v2
     ted_train, ted_test, ted_dev = tedlium_loader(keep_archives)
 
     # TIMIT
@@ -73,7 +73,7 @@ def generate_dataset(keep_archives=True, use_timit=True):
     else:
         timit_train = ''
 
-    # Assemble and merge CSV files.
+    # Assemble and merge CSV files:
     # Train
     train_csv = merge_csv_files(
         [cv_train, ls_train, tatoeba_train, ted_train, timit_train],
