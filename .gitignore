@@ -1,6 +1,4 @@
 venv
 *.idea
 *__pycache__
-nohup.out
 *.swp
-temp.log

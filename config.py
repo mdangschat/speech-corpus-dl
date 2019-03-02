@@ -1,18 +1,20 @@
 """
 Configuration file for dataset creation.
-Also reference `asr/dataset/generate_dataset.py`.
+Also reference `generate_dataset.py`.
 """
 
 import os
 import re
 
-from asr.params import BASE_PATH, FLAGS
+SAMPLING_RATE = 16000
 
-CACHE_DIR = os.path.join(BASE_PATH, 'data/cache')
-CORPUS_DIR = os.path.join(BASE_PATH, 'data/corpus')
-
+# Path to git root.
+GIT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
 # Where to generate the CSV files, e.g. /home/user/../<project_name>/data/<target>.csv
-CSV_DIR = os.path.join(BASE_PATH, 'data')
+DATA_DIR = CSV_DIR = os.path.join(GIT_ROOT, 'data')
+
+CACHE_DIR = os.path.join(DATA_DIR, 'cache')
+CORPUS_DIR = os.path.join(DATA_DIR, 'corpus')
 
 CSV_DELIMITER = ';'
 
@@ -26,7 +28,7 @@ CSV_FIELDNAMES = [CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH]
 LABEL_WHITELIST_PATTERN = re.compile(r'[^a-z ]+')
 
 # Path to `corpus.json` file, that contains information about the dataset.
-CORPUS_JSON_PATH = os.path.join(BASE_PATH, 'data/corpus.json')
+JSON_PATH = os.path.join(DATA_DIR, 'corpus.json')
 
 
 def sox_commandline(input_path, target_path):
@@ -50,7 +52,7 @@ def sox_commandline(input_path, target_path):
         '-V1',  # Verbosity set to only errors (default is 2).
         '--volume', '0.95',
         input_path,
-        '--rate', str(FLAGS.sampling_rate),
+        '--rate', str(SAMPLING_RATE),
         target_path,
-        'remix', '1'  # Mono channel.
+        'remix', '1'  # Channels: Mono
     ]

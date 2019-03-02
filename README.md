@@ -1,3 +1,3 @@
 # [WiP] Speech Corpus Downloader
 
-Download and prepare commen free speech corpora.
+Download and prepare common free speech corpora.
