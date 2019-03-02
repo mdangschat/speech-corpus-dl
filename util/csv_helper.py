@@ -6,11 +6,10 @@ import csv
 import os
 import re
 
-from asr.dataset.config import CSV_HEADER_LABEL, CSV_HEADER_LENGTH, CSV_FIELDNAMES
-from asr.dataset.config import LABEL_WHITELIST_PATTERN, CSV_DIR, CSV_DELIMITER
-from asr.params import WIN_STEP
-from asr.util import storage
-from asr.util.matplotlib_helper import pyplot_display
+from config import CSV_HEADER_LABEL, CSV_HEADER_LENGTH, CSV_FIELDNAMES
+from config import LABEL_WHITELIST_PATTERN, CSV_DIR, CSV_DELIMITER, WIN_STEP
+from util.storage_helper import delete_file_if_exists
+from util.matplotlib_helper import pyplot_display
 
 
 def generate_csv(dataset_name, target, csv_data):
@@ -53,7 +52,7 @@ def generate_csv(dataset_name, target, csv_data):
     # Write list to CSV file.
     print('> Writing {} lines of {} files to {}'.format(len(csv_data), target, target_csv_path))
     # Delete the old file if it exists.
-    storage.delete_file_if_exists(target_csv_path)
+    delete_file_if_exists(target_csv_path)
 
     # Write data to the file.
     with open(target_csv_path, 'w', encoding='utf-8') as file_handle:
@@ -145,7 +144,7 @@ def sort_by_seq_len(csv_path, max_length=17.0):
               .format(number_of_entries - len(csv_data)))
 
     # Write CSV data back to file.
-    storage.delete_file_if_exists(csv_path)
+    delete_file_if_exists(csv_path)
     with open(csv_path, 'w', encoding='utf-8') as file_handle:
         writer = csv.DictWriter(file_handle, delimiter=CSV_DELIMITER, fieldnames=CSV_FIELDNAMES)
         writer.writeheader()

@@ -1,12 +1,15 @@
 """
 Generate `train.csv`, `dev.csv`, and `test.csv` for the `LibriSpeech`_
-and `TEDLIUMv2`_ and `TIMIT`_ and `TATOEBA`_ and `Common Voice`_ datasets.
+and `TEDLIUMv2`_ and `TIMIT`_ and `TATOEBA`_ and `Common Voice`_ corpora.
 
-The selected parts of various datasets are merged into combined files at the end.
+The selected parts of various corpora are merged into combined files at the end.
 
+TODO: Update values for CVv2.
 Downloading all supported archives requires approximately 80GB of free disk space.
-The extracted corpus requires about 125GB of free disk space.
+The extracted corpus requires an additional ~125GB of free disk space.
 
+TODO: Update documentation to reflect the CSV change.
+TODO: Make the format configurable in `config.py`.
 Generated data format:
     `path/to/sample.wav transcription of the sample wave file<new_line>`
 
@@ -32,12 +35,12 @@ Generated data format:
 import json
 
 from config import JSON_PATH
-from dl.common_voice_v1 import common_voice_loader
-from dl.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
-from dl.libri_speech import libri_speech_loader
-from dl.tatoeba import tatoeba_loader
-from dl.tedlium_v2 import tedlium_loader
-from dl.timit import timit_loader
+from downloader.common_voice_v1 import common_voice_loader
+from util.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
+from downloader.libri_speech import libri_speech_loader
+from downloader.tatoeba import tatoeba_loader
+from downloader.tedlium_v2 import tedlium_loader
+from downloader.timit import timit_loader
 
 
 def generate_dataset(keep_archives=True, use_timit=True):

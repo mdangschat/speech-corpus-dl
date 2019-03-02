@@ -6,7 +6,13 @@ Also reference `generate_dataset.py`.
 import os
 import re
 
+# Audio config.
 SAMPLING_RATE = 16000
+# Minimum and maximum audio file length (in seconds).
+MIN_EXAMPLE_LENGTH = 0.7
+MAX_EXAMPLE_LENGTH = 17.0
+# The step between successive windows in seconds.
+WIN_STEP = 0.010
 
 # Path to git root.
 GIT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))

@@ -1,4 +1,5 @@
 """
+# TODO: Document that this is not included, etc.
 Load the `TIMIT`_ dataset.
 
 .. _TIMIT:
@@ -9,10 +10,9 @@ import os
 
 from scipy.io import wavfile
 
-from asr.dataset.config import CORPUS_DIR
-from asr.dataset.config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
-from asr.dataset.csv_helper import generate_csv
-from asr.params import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
+from config import CORPUS_DIR, MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
+from config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
+from util.csv_helper import generate_csv
 
 # Path to the TIMIT dataset.
 __NAME = 'timit'

@@ -15,12 +15,12 @@ from multiprocessing import Pool, Lock, cpu_count
 from scipy.io import wavfile
 from tqdm import tqdm
 
-from asr.dataset import download
-from asr.dataset.config import CACHE_DIR, CORPUS_DIR, sox_commandline
-from asr.dataset.config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
-from asr.dataset.csv_helper import generate_csv
-from asr.params import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, FLAGS
-from asr.util.storage import delete_file_if_exists
+from util import download
+from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, SAMPLING_RATE
+from config import CACHE_DIR, CORPUS_DIR, sox_commandline
+from config import CSV_HEADER_PATH, CSV_HEADER_LABEL, CSV_HEADER_LENGTH
+from util.csv_helper import generate_csv
+from util.storage_helper import delete_file_if_exists
 
 # L8ER: Configuration for TEDLIUM v3: http://www.openslr.org/51/
 # __URL = 'http://www.openslr.org/resources/51/TEDLIUM_release-3.tgz'
@@ -155,7 +155,7 @@ def __tedlium_loader_helper(args):
 
         # Load the audio data, to later split it into a part per audio segment.
         (sampling_rate, wav_data) = wavfile.read(wav_path)
-        assert sampling_rate == FLAGS.sampling_rate
+        assert sampling_rate == SAMPLING_RATE
 
         output = []
 
