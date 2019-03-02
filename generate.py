@@ -43,7 +43,7 @@ from downloader.timit import timit_loader
 from util.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
 
 
-def generate_dataset(keep_archives=True, use_timit=True):
+def generate_dataset(keep_archives=True, use_timit=False):
     """
     Download and pre-process the corpus.
 
@@ -71,7 +71,7 @@ def generate_dataset(keep_archives=True, use_timit=True):
     if use_timit:
         timit_train, timit_test = timit_loader()
     else:
-        timit_train = ''
+        timit_train = None
 
     # Assemble and merge CSV files:
     # Train

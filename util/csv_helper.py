@@ -78,6 +78,9 @@ def merge_csv_files(csv_files, target):
     if target not in ['test', 'dev', 'train']:
         raise ValueError('Invalid target.')
 
+    # Remove None objects from file list.
+    csv_files = [f for f in csv_files if f is not None]
+
     buffer = []
 
     # Read and merge files.

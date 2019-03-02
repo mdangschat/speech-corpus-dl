@@ -17,8 +17,9 @@ MAX_EXAMPLE_LENGTH = 17.0
 WIN_STEP = 0.010
 
 # Path to data directory, this must be an existing folder.
-DATA_DIR = '/home/marc/workspace/speech-corpus'
-assert os.path.exists(DATA_DIR) and os.path.isdir(DATA_DIR) and os.access(DATA_DIR, os.W_OK)
+DATA_DIR = os.path.join(os.path.expanduser('~'), 'workspace/speech-corpus')
+assert os.path.exists(DATA_DIR) and os.path.isdir(DATA_DIR) and os.access(DATA_DIR, os.W_OK), \
+    'The target folder provided in `config.py` does not exist.'
 
 CACHE_DIR = os.path.join(DATA_DIR, 'cache')
 CORPUS_DIR = os.path.join(DATA_DIR, 'corpus')
