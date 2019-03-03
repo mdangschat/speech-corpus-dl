@@ -7,7 +7,8 @@ import os
 from collections import Counter
 
 import numpy as np
-from asr.dataset.config import CSV_DIR, CSV_DELIMITER, CSV_FIELDNAMES, CSV_HEADER_LABEL
+
+from config import DATA_DIR, CSV_DELIMITER, CSV_FIELDNAMES, CSV_HEADER_LABEL
 
 
 def _load_labels(path):
@@ -75,7 +76,7 @@ def _plot_word_stats(labels):
 
 
 if __name__ == '__main__':
-    __CSV_PATH = os.path.join(CSV_DIR, 'train.csv')
+    __CSV_PATH = os.path.join(DATA_DIR, 'train.csv')
     print('Calculating statistics for {}'.format(__CSV_PATH))
 
     _plot_word_stats(_load_labels(__CSV_PATH))

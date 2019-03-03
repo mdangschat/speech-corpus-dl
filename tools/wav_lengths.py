@@ -1,7 +1,7 @@
 """
 Print out a length distribution for used WAV files.
 
-TODO: This module is not updated to the current TXT to CSV changes.
+TODO: This module is not updated to the current TXT-to-CSV changes.
 """
 
 import os
@@ -10,12 +10,11 @@ import sys
 from multiprocessing import Pool, Lock, cpu_count
 
 import numpy as np
-from asr.params import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH
-from asr.util.matplotlib_helper import pyplot_display
 from scipy.io import wavfile
 from tqdm import tqdm
 
-__DATASETS_PATH = '../datasets/speech_data'
+from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, CORPUS_DIR
+from util.matplotlib_helper import pyplot_display
 
 
 def calculate_dataset_stats(txt_path, show_buckets=0):
@@ -91,7 +90,7 @@ def _bucketing(number_buckets, sample_lengths):
 def _stat_calculator(line):
     # Python multiprocessing helper method.
     wav_path, _ = line.split(' ', 1)
-    wav_path = os.path.join(__DATASETS_PATH, wav_path)
+    wav_path = os.path.join(CORPUS_DIR, wav_path)
 
     if not os.path.isfile(wav_path):
         raise ValueError('"{}" does not exist.'.format(wav_path))

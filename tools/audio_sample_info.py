@@ -14,11 +14,14 @@ import random
 import librosa
 import numpy as np
 import python_speech_features as psf
-from asr.params import BASE_PATH, WIN_STEP, WIN_LENGTH
 from librosa import display
 from matplotlib import pyplot as plt
 from matplotlib import rc
 from scipy.io import wavfile
+
+from config import DATA_DIR, WIN_STEP
+
+WIN_LENGTH = 0.025
 
 rc('font', **{'family': 'serif',
               'serif': ['DejaVu Sans'],
@@ -26,7 +29,7 @@ rc('font', **{'family': 'serif',
               })
 rc('text', usetex=True)
 
-DATASETS_PATH = os.path.join(BASE_PATH, '../datasets/speech_data')
+CORPUS_DIR = os.path.join(DATA_DIR, 'corpus')
 
 
 def display_sample_info(file_path, label=''):
@@ -196,7 +199,7 @@ def display_sample_info(file_path, label=''):
 
 
 if __name__ == '__main__':
-    _test_txt_path = os.path.join(BASE_PATH, 'data', 'train.csv')
+    _test_txt_path = os.path.join(DATA_DIR, 'train.csv')
 
     # Display specific sample info's.
     with open(_test_txt_path, 'r') as f:
@@ -205,7 +208,7 @@ if __name__ == '__main__':
         # _line = _lines[37748]       # "The cat is on the roof"
         _line = _lines[375]
         _wav_path, txt = _line.split(' ', 1)
-        _wav_path = os.path.join(DATASETS_PATH, _wav_path)
+        _wav_path = os.path.join(CORPUS_DIR, _wav_path)
         _txt = txt.strip()
         # display_sample_info(_wav_path, label=_txt)
 
