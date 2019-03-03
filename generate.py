@@ -129,8 +129,9 @@ def store_corpus_json(train_size, test_size, dev_size, train_length):
 
 # Generate data.
 if __name__ == '__main__':
+    # TODO: This needs a terminal config menu and notes about the corpora's licenses.
     print('Starting to generate corpus.')
 
-    generate_dataset(keep_archives=True, use_timit=True)
+    generate_dataset(keep_archives=True, use_timit=False)
 
     print('Done. Please verify that "data/cache" contains only data that you want to keep.')
