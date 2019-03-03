@@ -4,6 +4,7 @@ Print out a length distribution for used WAV files.
 TODO: This module is not updated to the current TXT-to-CSV changes.
 """
 
+import csv
 import os
 import pickle
 import sys
@@ -13,37 +14,40 @@ import numpy as np
 from scipy.io import wavfile
 from tqdm import tqdm
 
+from config import CSV_DELIMITER, CSV_FIELDNAMES, CSV_HEADER_PATH
 from config import MIN_EXAMPLE_LENGTH, MAX_EXAMPLE_LENGTH, CORPUS_DIR
 from util.matplotlib_helper import pyplot_display
 
 
-def calculate_dataset_stats(txt_path, show_buckets=0):
+def calculate_dataset_stats(csv_path, show_buckets=0):
     """Gather mean and standard deviation values. Averaged for every file in the
     training txt data file.
 
     Args:
-        txt_path (str): Path to the `train.txt`.
+        csv_path (str): Path to the `train.csv`.
         show_buckets (int): Display additional bucketing markers if `show_buckets > 0`.
 
     Returns:
         Nothing.
     """
     # Check if results are buffered.
-    tmp_path = '/tmp/sample_length_dump_{}.p'.format(os.path.split(txt_path)[1])
+    tmp_path = '/tmp/sample_length_dump_{}.p'.format(os.path.split(csv_path)[1])
     if not (os.path.exists(tmp_path) and os.path.isfile(tmp_path)):
         sample_lengths = []  # Output buffer.
         sample_lengths_sec = []  # Output buffer.
 
-        # Read train.txt file.
-        with open(txt_path, 'r') as file_handle:
-            lines = file_handle.readlines()
+        with open(csv_path, 'r', encoding='utf-8') as file_handle:
+            reader = csv.DictReader(file_handle, delimiter=CSV_DELIMITER, fieldnames=CSV_FIELDNAMES)
+
+            # Read all lines into memory and remove CSV header.
+            csv_data = [csv_entry for csv_entry in reader][1:]
 
             # Setup threadpool.
             lock = Lock()
             with Pool(processes=cpu_count()) as pool:
                 for length, length_sec in tqdm(
-                        pool.imap_unordered(_stat_calculator, lines, chunksize=4),
-                        desc='Reading audio samples', total=len(lines), file=sys.stdout,
+                        pool.imap_unordered(__stat_calculator, csv_data, chunksize=4),
+                        desc='Reading audio samples', total=len(csv_data), file=sys.stdout,
                         unit='samples', dynamic_ncols=True):
                     lock.acquire()
                     sample_lengths.append(length)
@@ -55,7 +59,7 @@ def calculate_dataset_stats(txt_path, show_buckets=0):
 
             total_len = np.sum(sample_lengths_sec)
             print('Total sample length={:.3f}s (~{}h) of {}.'
-                  .format(total_len, int(total_len / 60 / 60), txt_path))
+                  .format(total_len, int(total_len / 60 / 60), csv_path))
             print('Mean sample length={:.0f} ({:.3f})s.'
                   .format(np.mean(sample_lengths), np.mean(sample_lengths_sec)))
 
@@ -64,7 +68,7 @@ def calculate_dataset_stats(txt_path, show_buckets=0):
         sample_lengths_sec = pickle.load(open(tmp_path, 'rb'))
 
     # Add optional bucket markers.
-    buckets = _bucketing(show_buckets, sample_lengths_sec)
+    buckets = __bucketing(show_buckets, sample_lengths_sec)
 
     # Plot histogram of WAV length distribution.
     _plot_wav_lengths(sample_lengths_sec, buckets=buckets)
@@ -72,7 +76,7 @@ def calculate_dataset_stats(txt_path, show_buckets=0):
     print('Done.')
 
 
-def _bucketing(number_buckets, sample_lengths):
+def __bucketing(number_buckets, sample_lengths):
     if number_buckets <= 0:
         return None
 
@@ -87,9 +91,9 @@ def _bucketing(number_buckets, sample_lengths):
     return buckets
 
 
-def _stat_calculator(line):
+def __stat_calculator(csv_data):
     # Python multiprocessing helper method.
-    wav_path, _ = line.split(' ', 1)
+    wav_path = csv_data[CSV_HEADER_PATH]
     wav_path = os.path.join(CORPUS_DIR, wav_path)
 
     if not os.path.isfile(wav_path):
@@ -102,10 +106,10 @@ def _stat_calculator(line):
     length_sec = length / sampling_rate
 
     if length_sec < MIN_EXAMPLE_LENGTH:
-        print('WARN: Too short example found: ', line, length_sec)
+        print('WARN: Too short example found: ', wav_path, length_sec)
 
     if length_sec > MAX_EXAMPLE_LENGTH:
-        print('WARN: Overlong example found: ', line, length_sec)
+        print('WARN: Overlong example found: ', wav_path, length_sec)
 
     return length, length_sec
 
@@ -137,8 +141,8 @@ def _plot_wav_lengths(plt, sample_lengths_sec, buckets=None):
     display_grid = buckets is None
     plt.grid(b=True, which='major', axis='both', linestyle='dashed', linewidth=0.7, aa=False,
              visible=display_grid)
-    plt.ylim(ymin=0)
-    plt.xlim(xmin=0)
+    plt.ylim(bottom=0)
+    plt.xlim(left=0)
 
     # Finish plot by tightening everything up.
     plt.tight_layout()
@@ -151,7 +155,7 @@ def _plot_wav_lengths(plt, sample_lengths_sec, buckets=None):
 
 if __name__ == '__main__':
     # Path to `train.csv` test
-    __CSV_PATH = os.path.join('./data', 'train.csv')
+    __CSV_PATH = os.path.join(os.path.expanduser('~'), 'workspace/speech-corpus', 'train.csv')
 
     # Display dataset stats.
     calculate_dataset_stats(__CSV_PATH, show_buckets=0)
