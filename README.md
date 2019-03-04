@@ -36,7 +36,7 @@ TODO: Document
 
 ### TIMIT
 * Website: https://catalog.ldc.upenn.edu/LDC93S1
-* License: [https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf](LDC User Agreement for Non-Members)
+* License: [LDC User Agreement for Non-Members](https://catalog.ldc.upenn.edu/license/ldc-non-members-agreement.pdf)
 * Note: This is a special case since this is not a free corpus, therefore no download available.
     If you have a license, the corpus can be included:
     * Enable the `use_timit` flag in `generate.py`
