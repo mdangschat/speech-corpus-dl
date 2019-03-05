@@ -32,7 +32,7 @@ def maybe_download_batch(urls, md5s, cache_archives=True):
         maybe_download(url, md5=md5, cache_archive=cache_archives)
 
 
-def maybe_download(url, md5=None, cache_archive=True):
+def maybe_download(url, md5=None, cache_archive=True, target_subdir=''):
     """
     Downloads a archive file if it's not cached. The archive gets extracted afterwards.
     It is advised to call `cleanup_cache()` after pre-processing to remove the cached extracted
@@ -42,43 +42,49 @@ def maybe_download(url, md5=None, cache_archive=True):
     Args:
         url (str):
             URL for dataset download.
-        md5 (str):
+        md5 (str): Optional.
             Checksum for optional integrity check or `None`.
-        cache_archive (bool):
+        cache_archive (bool): Optional.
             `True` if the downloaded archive should be kept, `False` if it should be deleted.
+        target_subdir (str): Optional.
+            Subdirectory within the cache folder, to where the archive should be extracted.
 
     Returns:
         Nothing.
     """
     file_name = os.path.basename(urlparse(url).path)
-    storage_path = os.path.join(CACHE_DIR, '{}'.format(file_name))
+    archive_path = os.path.join(CACHE_DIR, '{}'.format(file_name))
 
     # Download archive if necessary.
-    if not os.path.isfile(storage_path):
-        download_with_progress(url, storage_path)
+    if not os.path.isfile(archive_path):
+        download_with_progress(url, archive_path)
     else:
-        print('Using cached archive: {}'.format(storage_path))
+        print('Using cached archive: {}'.format(archive_path))
 
     # Optional md5 integrity check.
     if md5:
-        md5sum = storage.md5(storage_path)
+        md5sum = storage.md5(archive_path)
         assert md5 == md5sum, 'Checksum does not match.'
 
+    # Create target subdirectory if needed.
+    if len(target_subdir) > 0:
+        storage.makedirs([os.path.join(CACHE_DIR, target_subdir)])
+
     # Extract archive to cache directory.
-    print('Starting extraction of: {}'.format(storage_path))
-    if tarfile.is_tarfile(storage_path):
-        storage.tar_extract_all(storage_path, CACHE_DIR)
-    elif zipfile.is_zipfile(storage_path):
-        with zipfile.ZipFile(storage_path, 'r') as zip_:
-            zip_.extractall(CACHE_DIR)
+    print('Starting extraction of: {}'.format(archive_path))
+    if tarfile.is_tarfile(archive_path):
+        storage.tar_extract_all(archive_path, os.path.join(CACHE_DIR, target_subdir))
+    elif zipfile.is_zipfile(archive_path):
+        with zipfile.ZipFile(archive_path, 'r') as zip_:
+            zip_.extractall(os.path.join(CACHE_DIR, target_subdir))
     else:
-        raise ValueError('Compression method not supported: ', storage_path)
-    print('Completed extraction of: {}'.format(storage_path))
+        raise ValueError('Compression method not supported for: ', archive_path)
+    print('Completed extraction of: {}'.format(archive_path))
 
     # Delete cached archive if requested.
     if not cache_archive:
-        storage.delete_file_if_exists(storage_path)
-        print('Cache file "{}" deleted.'.format(storage_path))
+        storage.delete_file_if_exists(archive_path)
+        print('Archive "{}" removed.'.format(archive_path))
 
 
 def cleanup_cache(directory_name):

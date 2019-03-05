@@ -1,15 +1,13 @@
 """
-Generate `train.csv`, `dev.csv`, and `test.csv` for the `LibriSpeech`_
-and `TEDLIUMv2`_ and `TIMIT`_ and `TATOEBA`_ and `Common Voice`_ corpora.
+Generate `train.csv`, `dev.csv`, and `test.csv` for the `LibriSpeech`_, `TEDLIUMv2`_, `TIMIT`_,
+ `TATOEBA`_ and `Common Voice`_ (v1 & v2) corpora.
 
 The selected parts of various corpora are merged into combined files at the end.
 
-TODO: Update values for CVv2.
 Downloading all supported archives requires approximately 80GB of free disk space.
 The extracted corpus requires an additional ~125GB of free disk space.
 
 TODO: Update documentation to reflect the CSV change.
-TODO: Make the format configurable in `config.py`.
 Generated data format:
     `path/to/sample.wav transcription of the sample wave file<new_line>`
 
@@ -35,7 +33,8 @@ Generated data format:
 import json
 
 from config import JSON_PATH
-from downloader.common_voice_v1 import cv_loader
+# from downloader.common_voice_v1 import cv_loader
+from downloader.common_voice_v2 import cv_loader
 from downloader.libri_speech import libri_loader
 from downloader.tatoeba import tatoeba_loader
 from downloader.tedlium_v2 import tedlium_loader
@@ -56,7 +55,10 @@ def generate_dataset(keep_archives=True, use_timit=False):
         Nothing.
     """
     # Common Voice v1
-    cv_train, cv_test, cv_dev = cv_loader(keep_archives)
+    # cv_train, cv_test, cv_dev = cv_loader(keep_archives)
+
+    # Common Voice v2
+    cv2_train = cv_loader(keep_archives)
 
     # Libri Speech ASR
     ls_train, ls_test, ls_dev = libri_loader(keep_archives)
@@ -76,13 +78,13 @@ def generate_dataset(keep_archives=True, use_timit=False):
     # Assemble and merge CSV files:
     # Train
     train_csv = merge_csv_files(
-        [cv_train, ls_train, tatoeba_train, ted_train, timit_train],
+        [cv2_train, ls_train, tatoeba_train, ted_train, timit_train],
         'train'
     )
 
     # Test
     test_csv = merge_csv_files(
-        [cv_test, ls_test],
+        [ls_test],
         'test'
     )
 

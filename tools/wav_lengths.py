@@ -1,7 +1,5 @@
 """
 Print out a length distribution for used WAV files.
-
-TODO: This module is not updated to the current TXT-to-CSV changes.
 """
 
 import csv

@@ -69,7 +69,18 @@ def md5(file_path):
 
 
 def makedirs(dirs):
-    # TODO: Documentation. Note that this expects a list.
+    """
+    Create a given directory or a list of directories, including required subdirectories.
+
+    Args:
+        dirs: String or list of strings.
+
+    Returns:
+        Nothing.
+    """
+    if isinstance(dirs, str):
+        dirs = [dirs]
+
     for _dir in dirs:
         if not os.path.exists(_dir):
             os.makedirs(_dir, exist_ok=True)
