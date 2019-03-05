@@ -86,8 +86,32 @@ TODO: Document
 
 ## Statistics
 ```terminal
-TODO
+$ ipython tools/wav_lengths.py 
+Reading audio samples: 100%|██████████████████████████████████████████████████████████████| 897948/897948 [35:38<00:00, 419.93samples/s]
+Total sample length=4592557.368s (~1275h) of workspace/speech-corpus/train.csv.
+Mean sample length=81832 (5.115)s.
+Plot saved to: /tmp/_plot_wav_lengths.png
 ```
+![Example length distribution plot](images/train_plot_wav_lengths.png)
 
-* **TODO**: Add word length distribution plots.
+```terminal
+$ ipython tools/word_counts.py 
+Calculating statistics for workspace/speech-corpus/train.csv
+Word based statistics:
+	total_words = 11,716,026
+	number_unique_words = 82,352
+	mean_sentence_length = 13.05 words
+	min_sentence_length = 1 words
+	max_sentence_length = 84 words
+	Most common words:  [('the', 649751), ('to', 347617), ('and', 296845), ('a', 279516), ('of', 271555), ('i', 220023), ('you', 181157), ('in', 174778), ('that', 162348), ('it', 139181)]
+	27344 words occurred only 1 time; 37,415 words occurred only 2 times; 49,962 words occurred only 5 times; 57,979 words occurred only 10 times.
+
+Character based statistics:
+	total_characters = 60,402,553
+	mean_label_length = 67.27 characters
+	min_label_length = 2 characters
+	max_label_length = 422 characters
+	Most common characters: [(' ', 10818079), ('e', 6112206), ('t', 4864057), ('o', 4006837), ('a', 3917617), ('i', 3437314), ('n', 3319309), ('s', 3051207), ('h', 3000228), ('r', 2703305), ('d', 2059374), ('l', 1976372), ('u', 1444798), ('m', 1347476), ('w', 1231782), ('c', 1175514), ('y', 1145448), ('g', 1045719), ('f', 979325), ('p', 838584), ('b', 756279), ('v', 486572), ('k', 465861), ('j', 73971), ('x', 73567), ('q', 39701), ('z', 32051)]
+	Most common characters: [' ', 'e', 't', 'o', 'a', 'i', 'n', 's', 'h', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y', 'g', 'f', 'p', 'b', 'v', 'k', 'j', 'x', 'q', 'z']
+```
 
