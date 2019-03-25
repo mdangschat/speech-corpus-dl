@@ -2,6 +2,24 @@
 
 Download and prepare common free speech corpora.
 
+
+## Contents
+<!-- TOC_START -->
+
+* [Contents](#contents)
+* [Default Configuration](#default-configuration)
+  * [Composition](#composition)
+* [Supported Corpora](#supported-corpora)
+  * [Common Voice](#common-voice)
+  * [Libri Speech](#libri-speech)
+  * [Tatoeba](#tatoeba)
+  * [TED-LIUM](#ted-lium)
+  * [TIMIT](#timit)
+* [Statistics](#statistics)
+
+<!-- TOC_END -->
+
+
 ## Default Configuration
 It converts all files to 16 kHz, mono, WAV files and stores them in CSV files (e.g. `train.csv`, `dev.csv`).
 Examples shorter than 0.7 or longer than 17.0 seconds are removed.
