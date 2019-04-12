@@ -1,12 +1,14 @@
 # Speech Corpus Downloader
 
 Download and prepare common free speech corpora.
+Tested with Python 3.6 and 3.7.
 
 
 ## Contents
 <!-- TOC_START -->
 
 * [Contents](#contents)
+* [Installation](#installation)
 * [Default Configuration](#default-configuration)
   * [Composition](#composition)
 * [Supported Corpora](#supported-corpora)
@@ -20,6 +22,30 @@ Download and prepare common free speech corpora.
 <!-- TOC_END -->
 
 
+## Installation
+* Go to your workspace directory.
+* *Optional:* Create a [virtualenv](https://docs.python.org/3/library/venv.html).
+
+```terminal
+git clone git@github.com:mdangschat/speech-corpus-dl.git
+```
+
+Set the default corpus directory (`DATA_DIR`) in `config.py` and create it.
+The default path is: `~/workspace/speech-corpus`.
+The selection of used corpora for train, dev and test is currently done within the `generate.py` file.
+
+```terminal
+cd speech-corpus-dl
+pip install -r requirements.txt
+```
+
+To start generating the corpus run:
+```terminal
+ipython generate.py
+```
+Be aware that this will download about 90 GiB of data and requires over 300 GiB of space to extract (if downloaded archives are not deleted).
+
+
 ## Default Configuration
 It converts all files to 16 kHz, mono, WAV files and stores them in CSV files (e.g. `train.csv`, `dev.csv`).
 Examples shorter than 0.7 or longer than 17.0 seconds are removed.
@@ -31,12 +57,20 @@ Example of the generated output folder structure:
 ```terminal
 speech-corpus
 ├── cache
+│   ├── dev-clean.tar.gz
+│   ├── en.tar.gz
+│   ├── tatoeba_audio_eng.zip
+│   ├── TEDLIUM_release2.tar.gz
+│   ├── test-clean.tar.gz
+│   ├── train-clean-100.tar.gz
+│   └── train-clean-360.tar.gz
 ├── commonvoicev2_train.csv
 ├── corpus
 │   ├── cvv2
 │   ├── LibriSpeech
 │   ├── tatoeba_audio_eng
-│   └── TEDLIUM_release2
+│   ├── TEDLIUM_release2
+│   └── timit
 ├── corpus.json
 ├── dev.csv
 ├── librispeech_dev.csv
@@ -49,6 +83,17 @@ speech-corpus
 ├── test.csv
 └── train.csv
 ```
+
+The generated CSV files have the following format:
+```csv
+path;label;length
+relative/path/to/example;lower case transcription without puntuation;3.14
+...
+```
+Where `path` is the relative WAV path from the `DATA_DIR/corpus/` directory (String).
+By default `label` is the lower case transcription without punctuation (String).
+Finally, `length` is the audio length in seconds (Float).
+
 
 ### Composition
 * **train.csv**:
@@ -69,7 +114,7 @@ speech-corpus
 * Supported versions:
     * [x] v1
     * [x] [v2](https://github.com/mozilla/CorporaCreator/blob/master/README.rst)
-* **NOTE**: Please confirm Mozilla's terms and conditions before downloading Common Voice v2.
+* **NOTE**: Please confirm [Mozilla's terms and conditions](https://voice.mozilla.org/en/datasets) before downloading Common Voice v2!
 
 
 ### Libri Speech

@@ -1,6 +1,4 @@
-"""
-Storage helper methods.
-"""
+"""Storage helper methods."""
 
 import hashlib
 import os
@@ -10,8 +8,7 @@ import time
 
 
 def delete_file_if_exists(path):
-    """
-    Delete the file for the given path, if it exists.
+    """Delete the file for the given path, if it exists.
 
     Args:
         path (str): File path.
@@ -32,8 +29,7 @@ def delete_file_if_exists(path):
 
 
 def delete_directory_if_exists(path):
-    """
-    Recursive delete of a folder and all contained files.
+    """Recursive removal of a folder and all contained files.
 
     Args:
         path (str):  Directory path.
@@ -52,8 +48,7 @@ def delete_directory_if_exists(path):
 
 
 def md5(file_path):
-    """
-    Calculate the md5 checksum of files that do not fit in memory.
+    """Calculate the md5 checksum of files that do not fit in memory.
 
     Args:
         file_path (str): Path to file.
@@ -69,8 +64,7 @@ def md5(file_path):
 
 
 def makedirs(dirs):
-    """
-    Create a given directory or a list of directories, including required subdirectories.
+    """Create a given directory or a list of directories, including required subdirectories.
 
     Args:
         dirs: String or list of strings.
@@ -87,8 +81,7 @@ def makedirs(dirs):
 
 
 def tar_extract_all(tar_path, target_path):
-    """
-    Extract a TAR archive. Overrides existing files.
+    """Extract a TAR archive. Overrides existing files.
 
     Args:
         tar_path (str): Path of TAR archive.

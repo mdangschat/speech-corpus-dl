@@ -1,6 +1,4 @@
-"""
-Calculate word based statistics for the train.csv file.
-"""
+"""Calculate word based statistics for the train.csv file."""
 
 import csv
 import os

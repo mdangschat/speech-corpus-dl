@@ -1,6 +1,6 @@
-"""
-Configuration file for dataset creation.
-Also reference `generate_dataset.py`.
+"""Configuration file for dataset creation.
+
+Please also reference `generate_dataset.py`.
 """
 
 import os
@@ -41,10 +41,9 @@ JSON_PATH = os.path.join(DATA_DIR, 'corpus.json')
 
 
 def sox_commandline(input_path, target_path):
-    """
-    Create the parametrized list of commands to convert some audio file into another format, using
-    sox.
-    See `man sox`.
+    """Create the parametrized list of commands to convert some audio file into another format.
+
+    Using sox. See: `man sox`.
 
     Args:
         input_path (str):

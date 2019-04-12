@@ -1,6 +1,4 @@
-"""
-Utility to download corpus data, if necessary.
-"""
+"""Utility to download corpus data, if necessary."""
 
 import os
 import sys
@@ -16,8 +14,7 @@ from util import storage_helper as storage
 
 
 def maybe_download_batch(urls, md5s, cache_archives=True):
-    """
-    Download and extract a batch of archives.
+    """Download and extract a batch of archives.
 
     Args:
         urls (List[str]): List of download URLs.
@@ -33,8 +30,8 @@ def maybe_download_batch(urls, md5s, cache_archives=True):
 
 
 def maybe_download(url, md5=None, cache_archive=True, target_subdir=''):
-    """
-    Downloads a archive file if it's not cached. The archive gets extracted afterwards.
+    """Downloads a archive file if it's not cached. The archive gets extracted afterwards.
+
     It is advised to call `cleanup_cache()` after pre-processing to remove the cached extracted
     folder.
     Currently only TAR and ZIP files are supported.
@@ -88,8 +85,7 @@ def maybe_download(url, md5=None, cache_archive=True, target_subdir=''):
 
 
 def cleanup_cache(directory_name):
-    """
-    Remove the given directory name from the projects `cache` directory.
+    """Remove the given directory name from the projects `cache` directory.
 
     Args:
         directory_name (str): Directory name of the extracted folder in the cache folder.
@@ -108,8 +104,7 @@ def cleanup_cache(directory_name):
 
 
 def download_with_progress(url, storage_path):
-    """
-    Download a given `url` to the `storage_path` and display a progressbar.
+    """Download a given `url` to the `storage_path` and display a progressbar.
 
     Args:
         url (str): The URL to download.

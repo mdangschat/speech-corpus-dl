@@ -1,6 +1,4 @@
-"""
-Print out a length distribution for used WAV files.
-"""
+"""Print out a length distribution for used WAV files."""
 
 import csv
 import os
@@ -18,8 +16,9 @@ from util.matplotlib_helper import pyplot_display
 
 
 def calculate_dataset_stats(csv_path, show_buckets=0):
-    """Gather mean and standard deviation values. Averaged for every file in the
-    training txt data file.
+    """Gather mean and standard deviation values.
+
+    Averaged for every file in the training CSV data file.
 
     Args:
         csv_path (str): Path to the `train.csv`.

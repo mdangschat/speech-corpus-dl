@@ -1,5 +1,4 @@
-"""
-Load the `TEDLIUM`_ (v2) dataset.
+"""Load the `TEDLIUM`_ (v2) dataset.
 
 .. _TEDLIUM:
     http://openslr.org/19
@@ -44,8 +43,8 @@ __PATTERN = re.compile(
 
 
 def tedlium_loader(keep_archive):
-    """
-    Download, extract and convert the TEDLIUM archive.
+    """Download, extract and convert the TEDLIUM archive.
+
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
 
     Requires lots of disk space, since the original format (SPH) is converted to WAV and then split
@@ -97,8 +96,7 @@ def tedlium_loader(keep_archive):
 
 
 def __tedlium_loader(target_folder):
-    """
-    Build the data that can be written to the desired CSV file.
+    """Build the data that can be written to the desired CSV file.
 
      Note:
          Since TEDLIUM data is one large .wav file per speaker. Therefore this method creates

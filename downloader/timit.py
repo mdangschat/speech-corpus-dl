@@ -1,6 +1,7 @@
-"""
-# TODO: Document that this is not included, and where to place the TIMIT data if available.
-Load the `TIMIT`_ dataset.
+"""Load the `TIMIT`_ dataset.
+
+NOTE: This corpus is not included. If you have access to it, place it into your `DATA_DIR`, e.g.
+`workspace/speech-corpus/corpus/TIMIT/timit`.
 
 .. _TIMIT:
     https://catalog.ldc.upenn.edu/LDC93S1
@@ -21,8 +22,7 @@ __TARGET_PATH = os.path.realpath(os.path.join(CORPUS_DIR, __FOLDER_NAME))
 
 
 def timit_loader():
-    """
-    Build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
+    """Build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
 
     Returns:
         List[str]: List containing the created CSV file paths.
@@ -41,8 +41,7 @@ def timit_loader():
 
 
 def __timit_loader(target):
-    """
-    Build the data that can be written to the desired CSV file.
+    """Build the data that can be written to the desired CSV file.
 
     Args:
         target (str): 'train' or 'test'.

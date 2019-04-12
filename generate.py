@@ -1,18 +1,17 @@
-"""
-Generate `train.csv`, `dev.csv`, and `test.csv` for the `LibriSpeech`_, `TEDLIUMv2`_, `TIMIT`_,
- `TATOEBA`_ and `Common Voice`_ (v1 & v2) corpora.
+"""Generate `train.csv`, `dev.csv`, and `test.csv` for the `LibriSpeech`_, `TEDLIUMv2`_, `TIMIT`_,
+`TATOEBA`_ and `Common Voice`_ (v1 & v2) corpora.
 
 The selected parts of various corpora are merged into combined files at the end.
 
 Downloading all supported archives requires approximately 80GB of free disk space.
 The extracted corpus requires an additional ~125GB of free disk space.
 
-TODO: Update documentation to reflect the CSV change.
-Generated data format:
-    `path/to/sample.wav transcription of the sample wave file<new_line>`
+Generated CSV data format:
+    CSV Header: `path;label;length in seconds`
+    Example: `path/to/sample.wav;transcription of the sample wave file;1.23`
 
     The transcription is in lower case letters a-z with every word separated
-    by a <space>. Punctuation is removed.
+    by a <space>. Punctuation is removed by default.
 
 .. _COMMON_VOICE:
     https://voice.mozilla.org/en
@@ -43,8 +42,7 @@ from util.csv_helper import sort_by_seq_len, get_corpus_length, merge_csv_files
 
 
 def generate_dataset(keep_archives=True, use_timit=False):
-    """
-    Download and pre-process the corpus.
+    """Download and pre-process the corpus.
 
     Args:
         keep_archives (bool): Cache downloaded archive files?
@@ -107,8 +105,7 @@ def generate_dataset(keep_archives=True, use_timit=False):
 
 
 def store_corpus_json(train_size, test_size, dev_size, train_length):
-    """
-    Store corpus metadata in `/python/data/corpus.json`.
+    """Store corpus metadata in `/python/data/corpus.json`.
 
     Args:
         train_size (int): Number of training examples.

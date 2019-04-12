@@ -1,6 +1,4 @@
-"""
-Helper methods to generate the CSV files.
-"""
+"""Helper methods to generate the CSV files."""
 
 import csv
 import os
@@ -13,8 +11,8 @@ from util.storage_helper import delete_file_if_exists
 
 
 def generate_csv(dataset_name, target, csv_data):
-    """
-    Generate CSV files containing the audio path and the corresponding sentence.
+    """Generate CSV files containing the audio path and the corresponding sentence.
+
     Generated files are being stored at `CSV_TARGET_PATH`.
     Examples with labels consisting of one or two characters are omitted.
 
@@ -65,8 +63,7 @@ def generate_csv(dataset_name, target, csv_data):
 
 
 def merge_csv_files(csv_files, target):
-    """
-    Merge a list of CSV files into a single target CSV file.
+    """Merge a list of CSV files into a single target CSV file.
 
     Args:
         csv_files (List[str]): List of paths to dataset CSV files.
@@ -111,8 +108,8 @@ def merge_csv_files(csv_files, target):
 
 
 def sort_by_seq_len(csv_path, max_length=17.0):
-    """
-    Sort a train.csv like file by it's audio files sequence length.
+    """Sort a train.csv like file by it's audio files sequence length.
+
     Additionally outputs longer than `max_length` are being discarded from the given CSV file.
     Also it prints out optimal bucket sizes after computation.
 
@@ -159,8 +156,8 @@ def sort_by_seq_len(csv_path, max_length=17.0):
 
 
 def get_corpus_length(csv_path):
-    """
-    Count the number of data entries in CSV file.
+    """Count the number of data entries in CSV file.
+
     Sum the length fields of every entry from a given CSV file.
     The CSV file is assumed to contain a header.
 
@@ -184,8 +181,8 @@ def get_corpus_length(csv_path):
 
 
 def get_bucket_boundaries(csv_path, num_buckets):
-    """
-    Generate a list of bucket boundaries, based on the example length in the CSV file.
+    """Generate a list of bucket boundaries, based on the example length in the CSV file.
+
     The boundaries are chose based on the distribution of example lengths, to allow each bucket
     to fill up at the same rate. This produces at max `num_buckets`.
 

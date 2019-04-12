@@ -1,5 +1,4 @@
-"""
-Load the `Tatoeba`_ dataset.
+"""Load the `Tatoeba`_ dataset.
 
 .. _Tatoeba:
     https://tatoeba.org/eng/downloads
@@ -32,8 +31,8 @@ __TARGET_PATH = os.path.realpath(os.path.join(CORPUS_DIR, __FOLDER_NAME))
 
 
 def tatoeba_loader(keep_archive):
-    """
-    Download, extract and convert the Tatoeba archive.
+    """Download, extract and convert the Tatoeba archive.
+
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
 
     Args:
@@ -67,8 +66,7 @@ def tatoeba_loader(keep_archive):
 
 
 def __tatoeba_loader(target):
-    """
-    Build the data that can be written to the desired CSV file.
+    """Build the data that can be written to the desired CSV file.
 
     Args:
         target (str): Only 'train' is supported for the Tatoeba dataset.

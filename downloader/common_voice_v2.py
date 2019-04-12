@@ -1,5 +1,4 @@
-"""
-Load the Mozilla `Common Voice`_ (v2) dataset.
+"""Load the Mozilla `Common Voice`_ (v2) dataset.
 
 This only provides a train set at the moment, since the official train.tsv, etc. files do not
 contain enough examples.
@@ -50,8 +49,8 @@ __VALID_ACCENTS = ['us',
 
 
 def cv_loader(keep_archive):
-    """
-    Download, extract and convert the Common Voice archive.
+    """Download, extract and convert the Common Voice archive.
+
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
 
     Uses only the valid dataset, additional constraints are:
@@ -65,6 +64,9 @@ def cv_loader(keep_archive):
     Returns:
         str: String containing the created CSV file path.
     """
+
+    print('Please read and accept the Mozilla Common Voice terms before downloading! '
+          'Visit: https://voice.mozilla.org/en/datasets')
 
     # Download and extract the dataset if necessary.
     download.maybe_download(__URL, md5=__MD5, cache_archive=keep_archive, target_subdir='cvv2')
@@ -86,8 +88,7 @@ def cv_loader(keep_archive):
 
 
 def __common_voice_loader(tsv_path):
-    """
-    Build the data that can be written to the desired CSV file.
+    """Build the data that can be written to the desired CSV file.
 
     Uses only the valid datasets, additional constraints are:
     * Downvotes must be at maximum 1/4 of upvotes.

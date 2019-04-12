@@ -1,5 +1,4 @@
-"""
-Load the `LibriSpeech`_ ASR corpus.
+"""Load the `LibriSpeech`_ ASR corpus.
 
 .. _LibriSpeech:
     http://openslr.org/12
@@ -40,8 +39,8 @@ __TARGET_PATH = os.path.realpath(os.path.join(CORPUS_DIR, __FOLDER_NAME))
 
 
 def libri_loader(keep_archive):
-    """
-    Download, extract and convert the Libri Speech archive.
+    """Download, extract and convert the Libri Speech archive.
+
     Then build all possible CSV files (e.g. `<dataset_name>_train.csv`, `<dataset_name>_test.csv`).
 
     Args:
@@ -86,8 +85,7 @@ def libri_loader(keep_archive):
 
 
 def __libri_speech_loader(folders):
-    """
-    Build the data that can be written to the desired CSV file.
+    """Build the data that can be written to the desired CSV file.
 
     Args:
         folders (List[str]): List of directories to include, e.g.

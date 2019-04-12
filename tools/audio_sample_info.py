@@ -34,6 +34,7 @@ CORPUS_DIR = os.path.join(DATA_DIR, 'corpus')
 
 def display_sample_info(file_path, label=''):
     """Generate various representations a given audio file.
+
     E.g. Mel, MFCC and power spectrogram's.
 
     Args:
