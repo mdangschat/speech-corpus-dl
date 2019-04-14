@@ -23,6 +23,8 @@ Tested with Python 3.6 and 3.7.
 
 
 ## Installation
+Requires: Python 3, [SoX](http://sox.sourceforge.net/).
+
 * Go to your workspace directory.
 * *Optional:* Create a [virtualenv](https://docs.python.org/3/library/venv.html).
 
