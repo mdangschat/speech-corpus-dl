@@ -130,9 +130,8 @@ def __common_voice_loader(tsv_path):
                                desc='Converting Common Voice MP3 to WAV', total=len(csv_lines),
                                file=sys.stdout, unit='files', dynamic_ncols=True):
                 if result is not None:
-                    lock.acquire()
-                    output.append(result)
-                    lock.release()
+                    with lock:
+                        output.append(result)
 
     return output
 

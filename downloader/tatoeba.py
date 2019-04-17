@@ -123,12 +123,11 @@ def __tatoeba_loader(target):
         for result in tqdm(pool.imap_unordered(__tatoeba_loader_helper, samples, chunksize=1),
                            desc='Converting Tatoeba MP3 to WAV', total=len(samples),
                            file=sys.stdout, unit='files', dynamic_ncols=True):
-            lock.acquire()
-            if result is None:
-                missing_mp3_counter += 1
-            else:
-                buffer.append(result)
-            lock.release()
+            with lock:
+                if result is None:
+                    missing_mp3_counter += 1
+                else:
+                    buffer.append(result)
 
     print('WARN: {} MP3 files listed in the CSV could not be found.'
           .format(missing_mp3_counter))

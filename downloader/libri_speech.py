@@ -113,9 +113,8 @@ def __libri_speech_loader(folders):
                            desc='Converting Libri Speech data', total=len(root_dir_files),
                            file=sys.stdout, dynamic_ncols=True, unit='directories'):
             if result is not None:
-                lock.acquire()
-                output.extend(result)
-                lock.release()
+                with lock:
+                    output.extend(result)
 
         return output
 
