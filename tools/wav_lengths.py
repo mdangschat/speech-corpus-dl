@@ -46,10 +46,9 @@ def calculate_dataset_stats(csv_path, show_buckets=0):
                         pool.imap_unordered(__stat_calculator, csv_data, chunksize=4),
                         desc='Reading audio samples', total=len(csv_data), file=sys.stdout,
                         unit='samples', dynamic_ncols=True):
-                    lock.acquire()
-                    sample_lengths.append(length)
-                    sample_lengths_sec.append(length_sec)
-                    lock.release()
+                    with lock:
+                        sample_lengths.append(length)
+                        sample_lengths_sec.append(length_sec)
 
             pickle.dump(sample_lengths_sec, open(tmp_path, 'wb'))
             print('Stored data to {}'.format(tmp_path))

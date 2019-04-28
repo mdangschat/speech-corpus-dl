@@ -126,9 +126,8 @@ def __common_voice_loader(folders):
                 for result in pool.imap_unordered(__common_voice_loader_helper,
                                                   csv_lines[1:], chunksize=1):
                     if result is not None:
-                        lock.acquire()
-                        output.append(result)
-                        lock.release()
+                        with lock:
+                            output.append(result)
 
     return output
 

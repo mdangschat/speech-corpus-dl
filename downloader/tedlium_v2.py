@@ -122,9 +122,8 @@ def __tedlium_loader(target_folder):
                            desc='Reading TEDLIUM files', total=len(files), file=sys.stdout,
                            unit='files', dynamic_ncols=True):
             if result is not None:
-                lock.acquire()
-                output.extend(result)
-                lock.release()
+                with lock:
+                    output.extend(result)
 
     return output
 
